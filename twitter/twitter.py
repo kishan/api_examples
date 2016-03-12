@@ -1,31 +1,42 @@
+import os
 import tweepy
 import threading
 
-#fill out with Twitter account information
-consumer_key=''
-consumer_secret=''
-access_token=''
-access_token_secret=''
 
-search_wait_interval = 10
-number_of_tweets_per_search = 5
-retweet_wait_interval = 5
-search_phrase = "RT retweet to win"
+# import twitter api_keys from twitter_variables.py file
+try:
+    from twitter_variables import *
+    from twitter_variables_ignore import *
+except:
+    from twitter_variables import *
+
+#fill out with Twitter account information
+twitter_consumer_key = TWITTER_CONSUMER_KEY
+twitter_consumer_secret = TWITTER_CONSUMER_SECRET
+twitter_access_token = TWITTER_ACCESS_TOKEN
+twitter_access_token_secret = TWITTER_ACCESS_TOKEN_SECRET
 
 # authentication
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
+auth = tweepy.OAuthHandler(twitter_consumer_key, twitter_consumer_secret)
+auth.set_access_token(twitter_access_token, twitter_access_token_secret)
 api = tweepy.API(auth)
 
 # initialize variables
 tweets_to_retweet = []
 last_tweet_id = 0
 
+# Sample method, used to update a status
+# Use this to test if api is working
+api.update_status('Hello Python Central!')
 
 # Search for tweets with the search_phrase defined above.
 # Append all tweets found to tweets_to_retweet list.
 def search_for_tweets():
     global last_tweet_id
+
+    search_wait_interval = 10
+    number_of_tweets_per_search = 5
+    search_phrase = "RT retweet to win"
 
     # continue to execute search function after specified interval
     t = threading.Timer(search_wait_interval, search_for_tweets)
@@ -59,6 +70,8 @@ def search_for_tweets():
 # Retweet tweets found by search function
 # Limits rate of retweeting so Twitter doesn't ban account
 def retweet_found_tweets():
+    retweet_wait_interval = 5
+
     # retweet after specified interval
     t = threading.Timer(retweet_wait_interval, retweet_found_tweets)
     t.start()
@@ -117,4 +130,4 @@ def run_twitter_search_bot():
     retweet_found_tweets()
 
 
-run_twitter_search_bot()
+# run_twitter_search_bot()
