@@ -5,8 +5,7 @@ import threading
 
 # import twitter api_keys from twitter_variables.py file
 try:
-    from twitter_variables import *
-    from twitter_variables_ignore import *
+    from twitter_variables_admin import *
 except:
     from twitter_variables import *
 
