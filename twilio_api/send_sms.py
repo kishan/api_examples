@@ -8,34 +8,51 @@ try:
     from twilio_variables_admin import *
 except:
     from twilio_variables import *
- 
-try:
-	client = TwilioRestClient(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN) 
-	
-	# sends a text
-	message = client.messages.create(
-		to="978-382-3789", 
-		from_="+19782917626", 
-		body="another message from TWILIO!!!",  
-	)
 
-	# sends a text with two images
-	# message = client.messages.create(
-	# 	to="978-382-3789", 
-	# 	from_="+19782917626",
-	# 	body="Hello there!",
-	# 	media_url=['https://demo.twilio.com/owl.png', 'https://demo.twilio.com/logo.png'])
+def send_sms():
+  try:
+  	client = TwilioRestClient(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN) 
+  	
+  	# sends a text
+  	message = client.messages.create(
+  		to="978-382-3789", 
+  		from_="19782917626", 
+  		body="another message from TWILIO!!!",  
+  	)
 
-	print message.sid
-	print message.date_created
-	print message.to
+  	# sends a text with two images
+  	# message = client.messages.create(
+  	# 	to="978-382-3789", 
+  	# 	from_="19782917626",
+  	# 	body="Hello there!",
+  	# 	media_url=['https://demo.twilio.com/owl.png', 'https://demo.twilio.com/logo.png'])
 
-except twilio.TwilioRestException as e:
-    print e
+  	print message.sid
+  	print message.date_created
+  	print message.to
 
+  except twilio.TwilioRestException as e:
+      print e
+
+def make_call():
+  try:
+    client = TwilioRestClient(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN) 
+    
+    call = client.calls.create(
+      to="978-382-3789",
+      from_="19782917626",
+      url="http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
+
+    print(call.sid)
+
+  except twilio.TwilioRestException as e:
+      print e
+
+# send_sms()
+# make_call()
 
 """
-RESPONSE:
+SMS RESPONSE:
 
 {
   "sid": "SMc49fa10c57c14352a81bab518e860cb6",
