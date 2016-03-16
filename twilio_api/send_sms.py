@@ -16,8 +16,9 @@ def send_sms():
   	# sends a text
   	message = client.messages.create(
   		to="978-382-3789", 
+      # to="3476988212", 
   		from_="19782917626", 
-  		body="another message from TWILIO!!!",  
+  		body="blah",  
   	)
 
   	# sends a text with two images
@@ -48,7 +49,7 @@ def make_call():
   except twilio.TwilioRestException as e:
       print e
 
-# send_sms()
+send_sms()
 # make_call()
 
 """
